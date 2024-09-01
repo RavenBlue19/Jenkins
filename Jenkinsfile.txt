@@ -1,0 +1,42 @@
+pipeline{
+    agent any
+    environment{
+        DIRECTORY_PATH= "/SIT223/Jenkins"
+        TESTING_ENVIRONMENT= "SIT223"
+        PRODUCTION_ENVIRONMENT= "Sam"
+    }
+    stages{
+        stage('build'){
+            steps{
+                echo "fetch the source code from $DIRECTORY_PATH"
+                echo "compile the code and generate any necessary artifacts"
+            }
+        }
+        stage('test'){
+            steps{
+                echo "Unit tests"
+                echo "integration tests"
+            }
+        }
+        stage('code quality check'){
+            steps{
+                echo "check the quality of code"
+            }
+        }
+        stage('deploy'){
+            steps{
+                echo "Deploy the application to a testing environment: $TESTING_ENVIRONMENT"
+            }
+        }
+        stage('approval'){
+            steps{
+                sleep(10)
+            }
+        }
+        stage('deploy to production'){
+            steps{
+                echo "Deploy to production environment: $PRODUCTION_ENVIRONMENT"
+            }
+        }
+    }
+}

@@ -24,6 +24,7 @@ pipeline {
                     body: "test completed",
                     attachemntsPattern: "log.txt",
                     mimeType: 'text/plain'
+                    )
                 }
             }
         }
@@ -45,6 +46,7 @@ pipeline {
                     body: "security scan completed",
                     attachemntsPattern: "log.txt",
                     mimeType: 'text/plain'
+                    )
                 }
             }
         }

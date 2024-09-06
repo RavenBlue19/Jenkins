@@ -8,12 +8,11 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo "Fetching the source code from $DIRECTORY_PATH"
-                echo "Compiling the code and generating any necessary artifacts"
+                echo " compiling and packaging using Maven"
             }
             post {
                 success {
-                    script {
+                    always {
                         emailext(
                             to: 'safifi19@gmail.com',
                             subject: "Build Status: Successful",
@@ -25,28 +24,34 @@ pipeline {
         }
         stage('test') {
             steps {
-                echo "Running unit tests"
-                echo "Running integration tests"
+                echo "Running tests"
+                echo "Tests Completed"
             }
         }
         stage('code quality check') {
             steps {
-                echo "Checking the quality of the code"
+                echo "Using SonarQube Scanner to check code quality"
+                echo "Quality standard is met"
             }
         }
-        stage('deploy') {
+        stage('security scan') {
             steps {
-                echo "Deploying the application to the testing environment: $TESTING_ENVIRONMENT"
+                echo "Scaning for vulnerabilities"
             }
         }
-        stage('approval') {
+        stage('deploy to staging') {
             steps {
-                input message: "Do you approve the deployment to production?"
+                 echo "deploying to staging server"
             }
         }
-        stage('deploy to production') {
+        stage('Integration tests on staging') {
             steps {
-                echo "Deploying to production environment: $PRODUCTION_ENVIRONMENT"
+                echo "running integration tests on staging"
+            }
+        }   
+        stage('Deploy to production'){
+            steps {
+                echo "deploying to production using AWS EC2 Instance"
             }
         }
     }

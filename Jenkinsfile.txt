@@ -13,11 +13,13 @@ pipeline {
             }
             post {
                 success {
-                    emailext(
-                        to: 'safifi19@gmail.com',
-                        subject: "Build Status: Successful",
-                        body: "The build was successful."
-                    )
+                    script {
+                        emailext(
+                            to: 'safifi19@gmail.com',
+                            subject: "Build Status: Successful",
+                            body: "The build was successful."
+                        )
+                    }
                 }
             }
         }

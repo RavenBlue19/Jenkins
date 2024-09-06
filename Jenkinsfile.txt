@@ -1,48 +1,50 @@
-pipeline{
+pipeline {
     agent any
-    environment{
-        DIRECTORY_PATH= "/SIT223/Jenkins"
-        TESTING_ENVIRONMENT= "SIT223"
-        PRODUCTION_ENVIRONMENT= "Sam"
+    environment {
+        DIRECTORY_PATH = "/SIT223/Jenkins"
+        TESTING_ENVIRONMENT = "SIT223"
+        PRODUCTION_ENVIRONMENT = "Sam"
     }
-    stages{
-        stage('build'){
-            steps{
-                echo "fetch the source code from $DIRECTORY_PATH"
-                echo "compile the code and generate any necessary artifacts"
+    stages {
+        stage('build') {
+            steps {
+                echo "Fetching the source code from $DIRECTORY_PATH"
+                echo "Compiling the code and generating any necessary artifacts"
             }
-            post{
-                success{
-                    mail to: "safifi19@gmail.com"
-                    subject: "build status email"
-                    body: "build was successful"
+            post {
+                success {
+                    emailext(
+                        to: 'safifi19@gmail.com',
+                        subject: "Build Status: Successful",
+                        body: "The build was successful."
+                    )
                 }
             }
         }
-        stage('test'){
-            steps{
-                echo "Unit tests"
-                echo "integration tests"
+        stage('test') {
+            steps {
+                echo "Running unit tests"
+                echo "Running integration tests"
             }
         }
-        stage('code quality check'){
-            steps{
-                echo "check the quality of code"
+        stage('code quality check') {
+            steps {
+                echo "Checking the quality of the code"
             }
         }
-        stage('deploy'){
-            steps{
-                echo "Deploy the application to a testing environment: $TESTING_ENVIRONMENT"
+        stage('deploy') {
+            steps {
+                echo "Deploying the application to the testing environment: $TESTING_ENVIRONMENT"
             }
         }
-        stage('approval'){
-            steps{
-                sleep(10)
+        stage('approval') {
+            steps {
+                input message: "Do you approve the deployment to production?"
             }
         }
-        stage('deploy to production'){
-            steps{
-                echo "Deploy to production environment: $PRODUCTION_ENVIRONMENT"
+        stage('deploy to production') {
+            steps {
+                echo "Deploying to production environment: $PRODUCTION_ENVIRONMENT"
             }
         }
     }

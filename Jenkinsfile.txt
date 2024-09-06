@@ -10,18 +10,21 @@ pipeline {
             steps {
                 echo " compiling and packaging using Maven"
             }
-            post {
-                success {
-                    mail to: "safifi19@gmail.com",
-                    subject: "build status Email",
-                    body: "build was successful"
-                }
-            }
         }
         stage('test') {
             steps {
                 echo "Running tests"
                 echo "Tests Completed"
+            }
+            post {
+                success {
+                    emailext (
+                    to: "safifi19@gmail.com",
+                    subject: "test",
+                    body: "test completed",
+                    attachemntsPattern: "log.txt",
+                    mimeType: 'text/plain'
+                }
             }
         }
         stage('code quality check') {
@@ -33,6 +36,16 @@ pipeline {
         stage('security scan') {
             steps {
                 echo "Scaning for vulnerabilities"
+            }
+            post {
+                success {
+                    emailext (
+                    to: "safifi19@gmail.com",
+                    subject: "security",
+                    body: "security scan completed",
+                    attachemntsPattern: "log.txt",
+                    mimeType: 'text/plain'
+                }
             }
         }
         stage('deploy to staging') {

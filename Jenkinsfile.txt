@@ -13,7 +13,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                echo "Running tests"
+                echo "Running tests using JUnit"
                 echo "Tests Completed"
             }
             post {
@@ -35,7 +35,7 @@ pipeline {
         }
         stage('security scan') {
             steps {
-                echo "Scaning for vulnerabilities"
+                echo "Scaning for vulnerabilities using OWASP Dependency-check"
             }
             post {
                 success {
@@ -50,17 +50,17 @@ pipeline {
         }
         stage('deploy to staging') {
             steps {
-                 echo "deploying to staging server"
+                 echo "deploying to staging server using AWS CLI"
             }
         }
         stage('Integration tests on staging') {
             steps {
-                echo "running integration tests on staging"
+                echo "running integration tests on staging using Selenium"
             }
         }   
         stage('Deploy to production'){
             steps {
-                echo "deploying to production using AWS EC2 Instance"
+                echo "deploying to production using AWS CLI"
             }
         }
     }

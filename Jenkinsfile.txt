@@ -12,13 +12,9 @@ pipeline {
             }
             post {
                 success {
-                    always {
-                        emailext(
-                            to: 'safifi19@gmail.com',
-                            subject: "Build Status: Successful",
-                            body: "The build was successful."
-                        )
-                    }
+                    mail to: "safifi19@gmail.com",
+                    subject: "build status Email",
+                    body: "build was successful"
                 }
             }
         }

@@ -22,7 +22,7 @@ pipeline {
                     to: "safifi19@gmail.com",
                     subject: "test",
                     body: "test completed",
-                    attachemntsPattern: "log.txt",
+                    attachmentsPattern: "log.txt",
                     mimeType: 'text/plain'
                     )
                 }
@@ -44,7 +44,7 @@ pipeline {
                     to: "safifi19@gmail.com",
                     subject: "security",
                     body: "security scan completed",
-                    attachemntsPattern: "log.txt",
+                    attachmentsPattern: "log.txt",
                     mimeType: 'text/plain'
                     )
                 }
